@@ -4,6 +4,7 @@ from app.models.chunk import Chunk
 from app.services.embedding_service import encode_query, encode_texts
 from app.services.vector_store import build_faiss_index, search_similar
 from app.models.document import Document
+from app.models.knowledge_item import KnowledgeItem
 
 def rebuild_chunk_index(db: Session):
     chunks = db.query(Chunk).order_by(Chunk.id.asc()).all()
@@ -16,6 +17,11 @@ def rebuild_chunk_index(db: Session):
     metadata = []
     for chunk in chunks:
         document = db.query(Document).filter(Document.id == chunk.document_id).first()
+        knowledge_item = (
+            db.query(KnowledgeItem)
+            .filter(KnowledgeItem.chunk_id == chunk.id)
+            .first()
+        )
 
         metadata.append(
             {
@@ -25,6 +31,11 @@ def rebuild_chunk_index(db: Session):
                 "chunk_index": chunk.chunk_index,
                 "content": chunk.content,
                 "page_num": chunk.page_num,
+                "knowledge_item_id": knowledge_item.id if knowledge_item else None,
+                "knowledge_title": knowledge_item.title if knowledge_item else None,
+                "knowledge_summary": knowledge_item.summary if knowledge_item else None,
+                "topic": knowledge_item.topic if knowledge_item else None,
+                "difficulty": knowledge_item.difficulty if knowledge_item else None,
             }
         )
 

@@ -55,6 +55,17 @@
                 </el-button>
               </div>
             </el-form-item>
+
+            <div class="quick-links">
+  <el-button text @click="$router.push('/knowledge')">
+    去知识库查看知识点
+  </el-button>
+  <el-button text @click="$router.push('/learning-path')">
+    去学习路径生成推荐
+  </el-button>
+</div>
+            
+
           </el-form>
         </el-card>
 
@@ -88,10 +99,26 @@
               <el-collapse-item
                 v-for="(item, index) in sources"
                 :key="index"
-                :title="`来源 ${index + 1} | 文件=${item.file_name || '未知文件'} | chunk=${item.chunk_index} | score=${item.score?.toFixed(4)}`"
-                :name="index"
+                :title="`来源 ${index + 1} | 文件=${item.file_name || '未知文件'} | 知识点=${item.knowledge_title || '未关联'} | score=${item.score?.toFixed(4)}`"
               >
-                <div class="source-content">{{ item.content }}</div>
+                <div class="source-card">
+  <div class="source-meta">
+    <div><b>文件名：</b>{{ item.file_name || '未知文件' }}</div>
+    <div><b>知识点标题：</b>{{ item.knowledge_title || '未关联知识点' }}</div>
+    <div><b>主题：</b>{{ item.topic || '-' }}</div>
+    <div><b>难度：</b>{{ item.difficulty || '-' }}</div>
+    <div><b>Chunk：</b>{{ item.chunk_index }}</div>
+  </div>
+
+  <div v-if="item.knowledge_summary" class="source-summary">
+    <b>知识点摘要：</b>{{ item.knowledge_summary }}
+  </div>
+
+  <div class="source-content">
+    <b>原始片段：</b>
+    <div>{{ item.content }}</div>
+  </div>
+</div>
               </el-collapse-item>
             </el-collapse>
           </div>
@@ -261,9 +288,54 @@ const fillExample = (text) => {
   margin-top: 8px;
 }
 
-@media (max-width: 1000px) {
-  .qa-grid {
+.source-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.source-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 10px 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f7faff;
+  border: 1px solid #edf2ff;
+  font-size: 14px;
+  color: #303133;
+}
+
+.source-summary {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fcfcfd;
+  border: 1px solid #f0f2f5;
+  line-height: 1.8;
+  color: #303133;
+}
+
+.source-content {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #ebeef5;
+  line-height: 1.8;
+  color: #303133;
+}
+
+.quick-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: -6px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .source-meta {
     grid-template-columns: 1fr;
   }
 }
+
 </style>

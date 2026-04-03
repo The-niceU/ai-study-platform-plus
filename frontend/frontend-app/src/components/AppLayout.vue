@@ -12,7 +12,9 @@
       <div class="nav-right">
         <el-button :type="isActive('/') ? 'primary' : ''" text @click="$router.push('/')">首页</el-button>
         <el-button :type="isActive('/documents') ? 'primary' : ''" text @click="$router.push('/documents')">文档管理</el-button>
+        <el-button :type="isActive('/knowledge') ? 'primary' : ''" text @click="$router.push('/knowledge')">知识库</el-button>
         <el-button :type="isActive('/qa') ? 'primary' : ''" text @click="$router.push('/qa')">智能问答</el-button>
+        <el-button :type="isActive('/learning-path') ? 'primary' : ''" text @click="$router.push('/learning-path')">学习路径</el-button>
 
         <el-divider direction="vertical" />
 

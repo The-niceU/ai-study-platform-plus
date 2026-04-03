@@ -9,3 +9,4 @@ class QARequest(BaseModel):
 class QAResponse(BaseModel):
     answer: str
     sources: list[dict]
+

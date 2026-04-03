@@ -4,6 +4,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Documents from '../views/Documents.vue'
 import QA from '../views/QA.vue'
+import KnowledgeBase from '../views/KnowledgeBase.vue'
+import LearningPath from '../views/LearningPath.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +38,18 @@ const router = createRouter({
       name: 'qa',
       component: QA,
       meta: { requiresAuth: true },
+    },
+    {
+      path: '/knowledge',
+      name: 'knowledge',
+      component: KnowledgeBase,
+      meta: { requiresAuth: true },
+    },
+    {
+  path: '/learning-path',
+  name: 'learning-path',
+  component: LearningPath,
+  meta: { requiresAuth: true },
     },
   ],
 })
