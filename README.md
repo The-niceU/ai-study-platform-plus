@@ -1,5 +1,5 @@
 # RAG Learning Platform Plus
-
+（未来可将论文分析系统与此项目联合起来，agent调用数据库，多模态转设置图片模板，rag检索论文文本）
 <p align="center">
   <strong>A RAG-based learning platform for course document management, knowledge-base retrieval, citation tracing, source-grounded QA, and learning path recommendation.</strong>
 </p>
